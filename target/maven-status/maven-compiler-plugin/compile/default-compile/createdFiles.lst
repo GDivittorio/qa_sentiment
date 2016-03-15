@@ -1,0 +1,16 @@
+pipeline\KeywordFeatures.class
+feature\lexicon\Lexicon.class
+cosineSimilarity\CosineSimilarity.class
+pipeline\DatasetRow.class
+feature\lexicon\SentiStrength.class
+feature\keyword\Patterns.class
+feature\Main.class
+feature\VectorOperation.class
+feature\semantic\PolarityVector.class
+arffProcessing\CSV2Arff.class
+pipeline\LexiconFeatures.class
+feature\Vector.class
+feature\keyword\Keyword.class
+feature\keyword\Utility.class
+pipeline\AllFeatures.class
+pipeline\SemanticFeatures.class

@@ -8,8 +8,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
+
 import cosineSimilarity.CosineSimilarity;
 import feature.Vector;
 import feature.VectorOperation;
@@ -86,7 +88,9 @@ public class SemanticFeatures {
 			int ii = 0;
 			for (DatasetRow d : list) {
 				List l = new ArrayList();
-				System.out.println("Printing line:" + ii);
+				if((ii%50) == 0){
+		        	System.out.println("Printing line:" + ii);
+		        }
 				for (double b : d.getDimensions()) {
 					l.add(b);
 				}

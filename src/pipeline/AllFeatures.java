@@ -112,7 +112,9 @@ public class AllFeatures {
 	        csvFilePrinter.printRecord(header);
 	        int ii = 0;
 	        for(DatasetRow d : list){
+	        	if((ii%50) == 0){
 	        	System.out.println("Printing line:" + ii);
+	        	}
 	        	List l = new ArrayList();
 	        	
 	        	for(double b : d.getDimensions()){

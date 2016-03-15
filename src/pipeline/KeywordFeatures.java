@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
+
 import feature.Vector;
 import feature.VectorOperation;
 import feature.keyword.Keyword;
@@ -95,7 +97,9 @@ public class KeywordFeatures {
 	        csvFilePrinter.printRecord(header);
 	        int ii = 0;
 	        for(DatasetRow d : list){
-	        	System.out.println("Printing line:" + ii);
+	        	if((ii%50) == 0){
+		        	System.out.println("Printing line:" + ii);
+		        }
 	        	List l = new ArrayList();
 	        	
 	        	for(double b : d.getDimensions()){

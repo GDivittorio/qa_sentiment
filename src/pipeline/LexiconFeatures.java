@@ -38,7 +38,6 @@ public class LexiconFeatures {
 		List<DatasetRow> list = new ArrayList<DatasetRow>();
 		DatasetRow dr;
 		double[] dimensions;
-
 		while ((row = br.readLine()) != null) {
 			line = row.split(";")[0];
 
@@ -95,7 +94,9 @@ public class LexiconFeatures {
 			csvFilePrinter.printRecord(header);
 			int ii = 0;
 			for (DatasetRow d : list) {
-				System.out.println("Printing line:" + ii);
+				if((ii%50) == 0){
+		        	System.out.println("Printing line:" + ii);
+		        }
 				List l = new ArrayList();
 
 				for (double b : d.getDimensions()) {

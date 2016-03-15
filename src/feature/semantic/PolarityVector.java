@@ -1,11 +1,12 @@
 package feature.semantic;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import feature.Vector;
 import feature.VectorOperation;
 
@@ -50,7 +51,8 @@ public class PolarityVector {
 			}
 		}
 		String line = "";
-		br = new BufferedReader(new FileReader(new File("./res/PositiveWord")));
+		InputStream is = getClass().getResourceAsStream("/PositiveWord");
+		br = new BufferedReader(new InputStreamReader(is));
 		while ((line = br.readLine()) != null) {
 			tmp = (String) m.get(line);
 			if (tmp != null) {
@@ -80,7 +82,8 @@ public class PolarityVector {
 
 		}
 		String line = "";
-		br = new BufferedReader(new FileReader(new File("./res/NegativeWord")));
+		InputStream is = getClass().getResourceAsStream("/NegativeWord");
+		br = new BufferedReader(new InputStreamReader(is));
 		while ((line = br.readLine()) != null) {
 			tmp = (String) m.get(line);
 			if (tmp != null) {
