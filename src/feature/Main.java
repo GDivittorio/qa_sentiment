@@ -33,7 +33,7 @@ import feature.keyword.Utility;
  *
  * Example command-line:
  * <pre>
- * java Main -i input.csv -W wordSpace.json -oc output.csv -oa output.arff"
+ * java Main -F A -i input.csv -W wordSpace.json -oc output.csv -oa output.arff"
  * </pre>
  *
  */
