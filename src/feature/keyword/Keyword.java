@@ -13,7 +13,7 @@ public class Keyword {
 	private PolarityVector pv = new PolarityVector();
 	
 	/*
-	 * Counts the occurences of every word of the input string.
+	 * Counts the occurrences of every word of the input string.
 	 * Return a map of unigrams and occurrences
 	 */
 	public Map<String, Integer> getWordOccurrences(String input){
@@ -44,6 +44,20 @@ public class Keyword {
 			}
 		return count;
 	}
+	
+	/*
+	 * Counts the total number of words in a string.
+	 * @author Gianmarco Divittorio
+	 * TODO: test
+	 */
+	private int wordsCount(String input) {
+		count = 0;
+		String[] ss = input.split("\\s+");
+		for (String s : ss) {
+				count ++;
+			}
+		return count;
+	}	
 
 	/*
 	 * Counts the total number of uppercase characters in a string
@@ -59,6 +73,34 @@ public class Keyword {
 		}
 		return count;
 	}
+	
+	/*
+	 * Counts the total number of uppervase words in a string. Note: special characters
+	 * are considered as uppercase characters too for the purpose of the method.
+	 * @author Gianmarco Divittorio
+	 * TODO: test
+	 */
+	private int uppercaseWordsCount(String input){
+		count = 0;
+		String[] ss = input.split("\\s");
+		for (String s: ss){
+			if(s.matches("^[A-Z]+$")){
+		        count++;
+		    }
+		}
+		return count;
+	}
+	
+	/*
+	 * Counts the ratio between uppercase words and the total number of words in a string.
+	 * @author Gianmarco Divittorio
+	 */
+	public double uppercaseWordsRatio (String input){
+		double upperWords = uppercaseWordsCount(input);
+		double totalWords = wordsCount(input);
+		
+		return upperWords/totalWords;
+	}
 
 	/*
 	 * Counts the ratio between the uppercase characters and the total number of
@@ -68,6 +110,23 @@ public class Keyword {
 		double totalChar = charactersCount(input);
 		double upperChar = uppercaseCount(input);
 		return upperChar / totalChar;
+	}
+	
+	/*
+	 * Counts the total number of user mentions in a string, where a user mention is
+	 * expressed in the form: "@User" 
+	 * TODO: test
+	 * @author Gianmarco Divittorio
+	 */
+	public int mentionCount (String input){
+		count = 0;
+		String[] ss = input.split("\\s+");
+		for (String s : ss) {
+			if (s.startsWith("@")){
+				count++;
+			}
+		}
+		return count;
 	}
 
 	/*
