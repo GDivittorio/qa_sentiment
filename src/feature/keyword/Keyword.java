@@ -75,7 +75,7 @@ public class Keyword {
 	}
 	
 	/*
-	 * Counts the total number of uppervase words in a string. Note: special characters
+	 * Counts the total number of uppercase words in a string. Note: special characters
 	 * are considered as uppercase characters too for the purpose of the method.
 	 * @author Gianmarco Divittorio
 	 * TODO: test
@@ -183,32 +183,24 @@ public class Keyword {
 	}
 
 	/*
-	 * Counts the total occurences of question marks in a string
+	 * Counts the total occurrences of string composed only from question marks and/or exclamation marks.
 	 */
-	public int qMarkCount(String input) {
+	public int qeStringCount(String input) {
 		count = 0;
 		String[] ss = input.split("\\s+");
 		for (String s : ss) {
-			for (char c : s.toCharArray()) {
-				if (c == '?')
+			if(isValidQEString(s))
 					count++;
-			}
 		}
 		return count;
 	}
 
 	/*
-	 * Counts the total occurences of exclamation marks in a string
+	 * Verify if a sting is a valid sequence of question marks and/or exclamation marks (min 2).
 	 */
-	public int eMarkCount(String input) {
-		count = 0;
-		String[] ss = input.split("\\s+");
-		for (String s : ss) {
-			for (char c : s.toCharArray()) {
-				if (c == '!')
-					count++;
-			}
-		}
-		return count;
+	private boolean isValidQEString(String s){
+		String regex = "[!?]{2}[!?]*";
+		return s.matches(regex);
 	}
+
 }
