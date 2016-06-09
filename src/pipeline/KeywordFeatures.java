@@ -60,8 +60,8 @@ public class KeywordFeatures {
 				}
 			}
 			
-			dr = new DatasetRow(row.split(";")[1], dimensions, occurrences, kc.uppercaseRatio(line), kc.emoPosCount(line), 
-					kc.emoNegCount(line), kc.laughCount(line), kc.qMarkCount(line), kc.eMarkCount(line));
+			dr = new DatasetRow(row.split(";")[1], dimensions, occurrences, kc.uppercaseRatio(line), kc.emoPosCount(line),
+					kc.emoNegCount(line), kc.laughCount(line), kc.qeStringCount(line));
 		
 			list.add(dr);
 		}
@@ -74,7 +74,7 @@ public class KeywordFeatures {
 	    for (int j = 0; j<positionWord.keySet().size(); j++) {
 	        	 header.add("t" + j);
 			}
-		String[] FILE_HEADER_END = {"UpperCase_Ratio","Positive_Emoticon","Negative_Emoticon","Laugh_Count","QMark_Count","EMark_Count"};
+		String[] FILE_HEADER_END = {"UpperCase_Ratio","Positive_Emoticon","Negative_Emoticon","Laugh_Count","QEString_Count"};
 		for(String s : FILE_HEADER_END){
 			header.add(s);
 		}
@@ -114,8 +114,7 @@ public class KeywordFeatures {
 	        	l.add(d.getPosEmoticon());
 	        	l.add(d.getNegEmoticon());
 	        	l.add(d.getLaughCount());
-	        	l.add(d.getQMarks());
-	        	l.add(d.getEMarks());
+	        	l.add(d.getQeStringsCount());
 	   
 	        	l.add(d.getLabel());
 	        	csvFilePrinter.printRecord(l);

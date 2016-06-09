@@ -160,8 +160,7 @@ public class Keyword {
 	}
 
 	/*
-	 * Counts the occurrences of sequences of "ah" as slang expression of
-	 * laughters in a string
+	 * Counts the occurrences of expression of laughters in a string
 	 */
 	public int laughCount(String input) {
 		count = 0;
@@ -175,11 +174,14 @@ public class Keyword {
 	}
 
 	/*
-	 * Verify if a string is a valid sequence of "ah" (min 2)
-	 */
-	private boolean isValidLaughSequence(String s) {
-		String a = "(?i)ah(ah)+";
-		return s.matches(a);
+ 	 * Verify is a string is an expression of laughters, like "ahah","ihihih","lol",etc.
+ 	 */
+	private static boolean isValidLaughSequence(String s) {
+		String l1 = "(?i)((ah|ha){2}(a|h)*)|((eh|he){2}(e|h)*)|((ih|hi){2}(i|h)*)";
+		if(s.matches(l1) || s.equalsIgnoreCase("lmao") || s.equalsIgnoreCase("lol") || s.equalsIgnoreCase("alol"))
+			return true;
+		else
+			return false;
 	}
 
 	/*

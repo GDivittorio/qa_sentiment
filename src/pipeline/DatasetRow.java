@@ -9,14 +9,14 @@ public class DatasetRow {
 	private double positiveSim, negativeSim;
 	private List<Integer> occurrences;
 	private double upperCRatio;
-	private int posEmoticon, negEmoticon, laughCount, QMarks, EMarks;
+	private int posEmoticon, negEmoticon, laughCount, qeStringsCount;
 	private int posTokens, negTokens, subjTokens, lastPos, lastNeg,
 			lastEmoticon;
 	private int posSum, negSum, subjSum, maxPos, maxNeg;
 
 	public DatasetRow(String label, double[] dimensions, double positiveSim,
 			double negativeSim, List<Integer> occurrences, double upperCRatio, int posEmoticon,
-			int negEmoticon, int laughCount, int qMarks, int eMarks,
+			int negEmoticon, int laughCount, int qeStringsCount,
 			int posTokens, int negTokens, int subjTokens, int lastPos,
 			int lastNeg, int lastEmoticon, int posSum, int negSum, int subjSum,
 			int maxPos, int maxNeg) {
@@ -29,8 +29,7 @@ public class DatasetRow {
 		this.posEmoticon = posEmoticon;
 		this.negEmoticon = negEmoticon;
 		this.laughCount = laughCount;
-		QMarks = qMarks;
-		EMarks = eMarks;
+		this.qeStringsCount = qeStringsCount;
 		this.posTokens = posTokens;
 		this.negTokens = negTokens;
 		this.subjTokens = subjTokens;
@@ -58,7 +57,7 @@ public class DatasetRow {
 	 * Only for keyword features
 	 */
 	public DatasetRow(String label, double[] dimensions, List<Integer> occurrences, double uppercaseRatio, int emoPosCount,
-			int emoNegCount, int laughCount, int qMarkCount, int eMarkCount) {
+			int emoNegCount, int laughCount, int qeStringCount) {
 		this.setLabel(label.replace(" ", ""));
 		this.dimensions = dimensions;
 		this.setOccurrences(occurrences);
@@ -66,8 +65,7 @@ public class DatasetRow {
 		this.posEmoticon = emoPosCount;
 		this.negEmoticon = emoNegCount;
 		this.laughCount = laughCount;
-		QMarks = qMarkCount;
-		EMarks = eMarkCount;
+		this.qeStringsCount = qeStringCount;
 	}
 
 	/*
@@ -148,21 +146,11 @@ public class DatasetRow {
 		this.laughCount = laughCount;
 	}
 
-	public int getQMarks() {
-		return QMarks;
+	public int getQeStringsCount() {
+		return qeStringsCount;
 	}
 
-	public void setQMarks(int qMarks) {
-		QMarks = qMarks;
-	}
-
-	public int getEMarks() {
-		return EMarks;
-	}
-
-	public void setEMarks(int eMarks) {
-		EMarks = eMarks;
-	}
+	public void setQeStringsCount(int qeStrings) { this.qeStringsCount = qeStrings; }
 
 	public int getPosTokens() {
 		return posTokens;

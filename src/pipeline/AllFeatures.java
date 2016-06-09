@@ -69,11 +69,10 @@ public class AllFeatures {
 				}
 			}
 			
-			dr = new DatasetRow(row.split(";")[1], dimensions, cs.cosineSimilarity(v, positive), cs.cosineSimilarity(v, negative), 
-			occurrences, kc.uppercaseRatio(line), kc.emoPosCount(line), kc.emoNegCount(line), kc.laughCount(line), kc.qMarkCount(line), 
-			kc.eMarkCount(line), l.positiveTknCount(line), l.negativeTknCount(line), l.subjTknCount(line), l.lastPosScore(line), l.lastNegScore(line),
+			dr = new DatasetRow(row.split(";")[1], dimensions, cs.cosineSimilarity(v, positive), cs.cosineSimilarity(v, negative),
+			occurrences, kc.uppercaseRatio(line), kc.emoPosCount(line), kc.emoNegCount(line), kc.laughCount(line), kc.qeStringCount(line), l.positiveTknCount(line), l.negativeTknCount(line), l.subjTknCount(line), l.lastPosScore(line), l.lastNegScore(line),
 			l.lastEmoScore(line), l.sumPosScore(line), l.sumNegScore(line), l.sumSubjScore(line), l.maxPosScore(line), l.maxNegScore(line));
-		
+
 			list.add(dr);
 		}
 		
@@ -87,7 +86,7 @@ public class AllFeatures {
 	    for (int j = 0; j<positionWord.keySet().size(); j++) {
 	        	 header.add("t" + j);
 			}
-		String[] FILE_HEADER_END = {"UpperCase_Ratio","Positive_Emoticon","Negative_Emoticon","Laugh_Count","QMark_Count","EMark_Count",
+		String[] FILE_HEADER_END = {"UpperCase_Ratio","Positive_Emoticon","Negative_Emoticon","Laugh_Count","QE_String_Count",
 		"Positive_Tokens","Negative_Tokens","Subjective_Tokens","Last_Positive_Score","Last_Negative_Score","Last_Emoticon_Score","Positive_Score_Sum","Negative_Score_Sum",
 		"Subjective_Score_Sum","Max_Positive_Score","Max_Negative_Score"};
 		for(String s : FILE_HEADER_END){
@@ -132,8 +131,7 @@ public class AllFeatures {
 	        	l.add(d.getPosEmoticon());
 	        	l.add(d.getNegEmoticon());
 	        	l.add(d.getLaughCount());
-	        	l.add(d.getQMarks());
-	        	l.add(d.getEMarks());
+	        	l.add(d.getQeStringsCount());
 	   
 	        	l.add(d.getPosTokens());
 	        	l.add(d.getNegTokens());
