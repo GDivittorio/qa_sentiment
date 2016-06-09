@@ -38,7 +38,9 @@ public class AllFeatures {
 	public void writeCsvFile(String output, File input, Map<String, String> dictionary, SortedMap<String, Integer> positionWord) throws Exception {
 		String row = ""; String line = "";
 		Vector v = new Vector();
-		
+
+		Vector subjective = pv.getSubjectiveVector(dictionary);
+		Vector objective = pv.getObjectiveVector(dictionary);
 		Vector positive = pv.getPositiveVector(dictionary);
 		Vector negative = pv.getNegativeVector(dictionary);
 		
@@ -69,9 +71,11 @@ public class AllFeatures {
 				}
 			}
 			
-			dr = new DatasetRow(row.split(";")[1], dimensions, cs.cosineSimilarity(v, positive), cs.cosineSimilarity(v, negative),
-			occurrences, kc.uppercaseRatio(line), kc.emoPosCount(line), kc.emoNegCount(line), kc.laughCount(line), kc.qeStringCount(line), l.positiveTknCount(line), l.negativeTknCount(line), l.subjTknCount(line), l.lastPosScore(line), l.lastNegScore(line),
-			l.lastEmoScore(line), l.sumPosScore(line), l.sumNegScore(line), l.sumSubjScore(line), l.maxPosScore(line), l.maxNegScore(line));
+			dr = new DatasetRow(row.split(";")[1], dimensions, cs.cosineSimilarity(v, subjective), cs.cosineSimilarity(v, objective),
+					cs.cosineSimilarity(v, positive), cs.cosineSimilarity(v, negative),
+					occurrences, kc.uppercaseRatio(line), kc.emoPosCount(line), kc.emoNegCount(line), kc.laughCount(line), kc.qeStringCount(line),
+					l.positiveTknCount(line), l.negativeTknCount(line), l.subjTknCount(line), l.lastPosScore(line), l.lastNegScore(line),
+					l.lastEmoScore(line), l.sumPosScore(line), l.sumNegScore(line), l.sumSubjScore(line), l.maxPosScore(line), l.maxNegScore(line));
 
 			list.add(dr);
 		}
@@ -81,8 +85,10 @@ public class AllFeatures {
 		for(int i = 1; i<=200; i++){
 	        header.add("d" + i);
 	        }
-		header.add("Positive_similarity");
-		header.add("Negative_similarity");
+		header.add("Sim_subj");
+		header.add("Sim_obj");
+		header.add("Sim_pos");
+		header.add("Sim_neg");
 	    for (int j = 0; j<positionWord.keySet().size(); j++) {
 	        	 header.add("t" + j);
 			}
@@ -119,7 +125,9 @@ public class AllFeatures {
 	        	for(double b : d.getDimensions()){
 	        		l.add(b);
 	        	}
-	        	
+
+				l.add(d.getSubjectiveSim());
+				l.add(d.getObjectiveSim());
 	        	l.add(d.getPositiveSim());
 	        	l.add(d.getNegativeSim());
 	        	

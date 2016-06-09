@@ -4,255 +4,269 @@ import java.util.List;
 
 public class DatasetRow {
 
-	private String label;
-	private double[] dimensions;
-	private double positiveSim, negativeSim;
-	private List<Integer> occurrences;
-	private double upperCRatio;
-	private int posEmoticon, negEmoticon, laughCount, qeStringsCount;
-	private int posTokens, negTokens, subjTokens, lastPos, lastNeg,
-			lastEmoticon;
-	private int posSum, negSum, subjSum, maxPos, maxNeg;
+    private String label;
+    private double[] dimensions;
+    private double positiveSim, negativeSim, subjectiveSim, objectiveSim;
+    private List<Integer> occurrences;
+    private double upperCRatio;
+    private int posEmoticon, negEmoticon, laughCount, qeStringsCount;
+    private int posTokens, negTokens, subjTokens, lastPos, lastNeg,
+            lastEmoticon;
+    private int posSum, negSum, subjSum, maxPos, maxNeg;
 
-	public DatasetRow(String label, double[] dimensions, double positiveSim,
-			double negativeSim, List<Integer> occurrences, double upperCRatio, int posEmoticon,
-			int negEmoticon, int laughCount, int qeStringsCount,
-			int posTokens, int negTokens, int subjTokens, int lastPos,
-			int lastNeg, int lastEmoticon, int posSum, int negSum, int subjSum,
-			int maxPos, int maxNeg) {
-		this.setLabel(label.replace(" ", ""));
-		this.dimensions = dimensions;
-		this.positiveSim = positiveSim;
-		this.negativeSim = negativeSim;
-		this.setOccurrences(occurrences);
-		this.upperCRatio = upperCRatio;
-		this.posEmoticon = posEmoticon;
-		this.negEmoticon = negEmoticon;
-		this.laughCount = laughCount;
-		this.qeStringsCount = qeStringsCount;
-		this.posTokens = posTokens;
-		this.negTokens = negTokens;
-		this.subjTokens = subjTokens;
-		this.lastPos = lastPos;
-		this.lastNeg = lastNeg;
-		this.lastEmoticon = lastEmoticon;
-		this.posSum = posSum;
-		this.negSum = negSum;
-		this.subjSum = subjSum;
-		this.maxPos = maxPos;
-		this.maxNeg = maxNeg;
-	}
+    public DatasetRow(String label, double[] dimensions, double subjectiveSim, double objectiveSim,
+                      double positiveSim, double negativeSim, List<Integer> occurrences,
+                      double upperCRatio, int posEmoticon,
+                      int negEmoticon, int laughCount, int qeStringsCount,
+                      int posTokens, int negTokens, int subjTokens, int lastPos,
+                      int lastNeg, int lastEmoticon, int posSum, int negSum, int subjSum,
+                      int maxPos, int maxNeg) {
+        this.setLabel(label.replace(" ", ""));
+        this.dimensions = dimensions;
+        this.subjectiveSim = subjectiveSim;
+        this.objectiveSim = objectiveSim;
+        this.positiveSim = positiveSim;
+        this.negativeSim = negativeSim;
+        this.setOccurrences(occurrences);
+        this.upperCRatio = upperCRatio;
+        this.posEmoticon = posEmoticon;
+        this.negEmoticon = negEmoticon;
+        this.laughCount = laughCount;
+        this.qeStringsCount = qeStringsCount;
+        this.posTokens = posTokens;
+        this.negTokens = negTokens;
+        this.subjTokens = subjTokens;
+        this.lastPos = lastPos;
+        this.lastNeg = lastNeg;
+        this.lastEmoticon = lastEmoticon;
+        this.posSum = posSum;
+        this.negSum = negSum;
+        this.subjSum = subjSum;
+        this.maxPos = maxPos;
+        this.maxNeg = maxNeg;
+    }
 
-	/*
-	 * Only for semantic features
-	 */
-	public DatasetRow(String label, double[] dimensions, double positiveSim, double negativeSim) {
-		this.setLabel(label.replace(" ", ""));
-		this.dimensions = dimensions;
-		this.positiveSim = positiveSim;
-		this.negativeSim = negativeSim;
-	}
+    /*
+     * Only for semantic features
+     */
+    public DatasetRow(String label, double[] dimensions, double subjectiveSim, double objectiveSim, double positiveSim,
+                      double negativeSim) {
+        this.setLabel(label.replace(" ", ""));
+        this.dimensions = dimensions;
+        this.subjectiveSim = subjectiveSim;
+        this.objectiveSim = objectiveSim;
+        this.positiveSim = positiveSim;
+        this.negativeSim = negativeSim;
+    }
 
-	/*
-	 * Only for keyword features
-	 */
-	public DatasetRow(String label, double[] dimensions, List<Integer> occurrences, double uppercaseRatio, int emoPosCount,
-			int emoNegCount, int laughCount, int qeStringCount) {
-		this.setLabel(label.replace(" ", ""));
-		this.dimensions = dimensions;
-		this.setOccurrences(occurrences);
-		this.upperCRatio = uppercaseRatio;
-		this.posEmoticon = emoPosCount;
-		this.negEmoticon = emoNegCount;
-		this.laughCount = laughCount;
-		this.qeStringsCount = qeStringCount;
-	}
+    /*
+     * Only for keyword features
+     */
+    public DatasetRow(String label, double[] dimensions, List<Integer> occurrences, double uppercaseRatio, int emoPosCount,
+                      int emoNegCount, int laughCount, int qeStringCount) {
+        this.setLabel(label.replace(" ", ""));
+        this.dimensions = dimensions;
+        this.setOccurrences(occurrences);
+        this.upperCRatio = uppercaseRatio;
+        this.posEmoticon = emoPosCount;
+        this.negEmoticon = emoNegCount;
+        this.laughCount = laughCount;
+        this.qeStringsCount = qeStringCount;
+    }
 
-	/*
-	 * Only for lexicon features
-	 */
-	public DatasetRow(String label, double[] dimensions, int positiveTknCount, int negativeTknCount, int subjTknCount,
-			int lastPosScore, int lastNegScore, int lastEmoScore, int sumPosScore, int sumNegScore, int sumSubjScore,
-			int maxPosScore, int maxNegScore) {
-		this.setLabel(label.replace(" ", ""));
-		this.dimensions = dimensions;
-		this.posTokens = positiveTknCount;
-		this.negTokens = negativeTknCount;
-		this.subjTokens = subjTknCount;
-		this.lastPos = lastPosScore;
-		this.lastNeg = lastNegScore;
-		this.lastEmoticon = lastEmoScore;
-		this.posSum = sumPosScore;
-		this.negSum = sumNegScore;
-		this.subjSum = sumSubjScore;
-		this.maxPos = maxPosScore;
-		this.maxNeg = maxNegScore;
-		
-	}
+    /*
+     * Only for lexicon features
+     */
+    public DatasetRow(String label, double[] dimensions, int positiveTknCount, int negativeTknCount, int subjTknCount,
+                      int lastPosScore, int lastNegScore, int lastEmoScore, int sumPosScore, int sumNegScore, int sumSubjScore,
+                      int maxPosScore, int maxNegScore) {
+        this.setLabel(label.replace(" ", ""));
+        this.dimensions = dimensions;
+        this.posTokens = positiveTknCount;
+        this.negTokens = negativeTknCount;
+        this.subjTokens = subjTknCount;
+        this.lastPos = lastPosScore;
+        this.lastNeg = lastNegScore;
+        this.lastEmoticon = lastEmoScore;
+        this.posSum = sumPosScore;
+        this.negSum = sumNegScore;
+        this.subjSum = sumSubjScore;
+        this.maxPos = maxPosScore;
+        this.maxNeg = maxNegScore;
 
-	public double[] getDimensions() {
-		return dimensions;
-	}
+    }
 
-	public void setDimensions(double[] dimensions) {
-		this.dimensions = dimensions;
-	}
+    public double[] getDimensions() {
+        return dimensions;
+    }
 
-	public double getPositiveSim() {
-		return positiveSim;
-	}
+    public void setDimensions(double[] dimensions) {
+        this.dimensions = dimensions;
+    }
 
-	public void setPositiveSim(double positiveSim) {
-		this.positiveSim = positiveSim;
-	}
+    public double getSubjectiveSim() { return subjectiveSim; }
 
-	public double getNegativeSim() {
-		return negativeSim;
-	}
+    public void setSubjectiveSim(double subjectiveSim) { this.subjectiveSim = subjectiveSim; }
 
-	public void setNegativeSim(double negativeSim) {
-		this.negativeSim = negativeSim;
-	}
+    public double getObjectiveSim() { return objectiveSim; }
 
-	public double getUpperCRatio() {
-		return upperCRatio;
-	}
+    public void setObjectiveSim(double objectiveSim) { this.objectiveSim = objectiveSim; }
 
-	public void setUpperCRatio(double upperCRatio) {
-		this.upperCRatio = upperCRatio;
-	}
+    public double getPositiveSim() {
+        return positiveSim;
+    }
 
-	public int getPosEmoticon() {
-		return posEmoticon;
-	}
+    public void setPositiveSim(double positiveSim) {
+        this.positiveSim = positiveSim;
+    }
 
-	public void setPosEmoticon(int posEmoticon) {
-		this.posEmoticon = posEmoticon;
-	}
+    public double getNegativeSim() {
+        return negativeSim;
+    }
 
-	public int getNegEmoticon() {
-		return negEmoticon;
-	}
+    public void setNegativeSim(double negativeSim) {
+        this.negativeSim = negativeSim;
+    }
 
-	public void setNegEmoticon(int negEmoticon) {
-		this.negEmoticon = negEmoticon;
-	}
+    public double getUpperCRatio() {
+        return upperCRatio;
+    }
 
-	public int getLaughCount() {
-		return laughCount;
-	}
+    public void setUpperCRatio(double upperCRatio) {
+        this.upperCRatio = upperCRatio;
+    }
 
-	public void setLaughCount(int laughCount) {
-		this.laughCount = laughCount;
-	}
+    public int getPosEmoticon() {
+        return posEmoticon;
+    }
 
-	public int getQeStringsCount() {
-		return qeStringsCount;
-	}
+    public void setPosEmoticon(int posEmoticon) {
+        this.posEmoticon = posEmoticon;
+    }
 
-	public void setQeStringsCount(int qeStrings) { this.qeStringsCount = qeStrings; }
+    public int getNegEmoticon() {
+        return negEmoticon;
+    }
 
-	public int getPosTokens() {
-		return posTokens;
-	}
+    public void setNegEmoticon(int negEmoticon) {
+        this.negEmoticon = negEmoticon;
+    }
 
-	public void setPosTokens(int posTokens) {
-		this.posTokens = posTokens;
-	}
+    public int getLaughCount() {
+        return laughCount;
+    }
 
-	public int getNegTokens() {
-		return negTokens;
-	}
+    public void setLaughCount(int laughCount) {
+        this.laughCount = laughCount;
+    }
 
-	public void setNegTokens(int negTokens) {
-		this.negTokens = negTokens;
-	}
+    public int getQeStringsCount() {
+        return qeStringsCount;
+    }
 
-	public int getSubjTokens() {
-		return subjTokens;
-	}
+    public void setQeStringsCount(int qeStrings) { this.qeStringsCount = qeStrings; }
 
-	public void setSubjTokens(int subjTokens) {
-		this.subjTokens = subjTokens;
-	}
+    public int getPosTokens() {
+        return posTokens;
+    }
 
-	public int getLastPos() {
-		return lastPos;
-	}
+    public void setPosTokens(int posTokens) {
+        this.posTokens = posTokens;
+    }
 
-	public void setLastPos(int lastPos) {
-		this.lastPos = lastPos;
-	}
+    public int getNegTokens() {
+        return negTokens;
+    }
 
-	public int getLastNeg() {
-		return lastNeg;
-	}
+    public void setNegTokens(int negTokens) {
+        this.negTokens = negTokens;
+    }
 
-	public void setLastNeg(int lastNeg) {
-		this.lastNeg = lastNeg;
-	}
+    public int getSubjTokens() {
+        return subjTokens;
+    }
 
-	public int getLastEmoticon() {
-		return lastEmoticon;
-	}
+    public void setSubjTokens(int subjTokens) {
+        this.subjTokens = subjTokens;
+    }
 
-	public void setLastEmoticon(int lastEmoticon) {
-		this.lastEmoticon = lastEmoticon;
-	}
+    public int getLastPos() {
+        return lastPos;
+    }
 
-	public int getPosSum() {
-		return posSum;
-	}
+    public void setLastPos(int lastPos) {
+        this.lastPos = lastPos;
+    }
 
-	public void setPosSum(int posSum) {
-		this.posSum = posSum;
-	}
+    public int getLastNeg() {
+        return lastNeg;
+    }
 
-	public int getNegSum() {
-		return negSum;
-	}
+    public void setLastNeg(int lastNeg) {
+        this.lastNeg = lastNeg;
+    }
 
-	public void setNegSum(int negSum) {
-		this.negSum = negSum;
-	}
+    public int getLastEmoticon() {
+        return lastEmoticon;
+    }
 
-	public int getSubjSum() {
-		return subjSum;
-	}
+    public void setLastEmoticon(int lastEmoticon) {
+        this.lastEmoticon = lastEmoticon;
+    }
 
-	public void setSubjSum(int subjSum) {
-		this.subjSum = subjSum;
-	}
+    public int getPosSum() {
+        return posSum;
+    }
 
-	public int getMaxPos() {
-		return maxPos;
-	}
+    public void setPosSum(int posSum) {
+        this.posSum = posSum;
+    }
 
-	public void setMaxPos(int maxPos) {
-		this.maxPos = maxPos;
-	}
+    public int getNegSum() {
+        return negSum;
+    }
 
-	public int getMaxNeg() {
-		return maxNeg;
-	}
+    public void setNegSum(int negSum) {
+        this.negSum = negSum;
+    }
 
-	public void setMaxNeg(int maxNeg) {
-		this.maxNeg = maxNeg;
-	}
+    public int getSubjSum() {
+        return subjSum;
+    }
 
-	public String getLabel() {
-		return label;
-	}
+    public void setSubjSum(int subjSum) {
+        this.subjSum = subjSum;
+    }
 
-	public void setLabel(String label) {
-		this.label = label;
-	}
+    public int getMaxPos() {
+        return maxPos;
+    }
 
-	public List<Integer> getOccurrences() {
-		return occurrences;
-	}
+    public void setMaxPos(int maxPos) {
+        this.maxPos = maxPos;
+    }
 
-	public void setOccurrences(List<Integer> occurrences) {
-		this.occurrences = occurrences;
-	}
+    public int getMaxNeg() {
+        return maxNeg;
+    }
+
+    public void setMaxNeg(int maxNeg) {
+        this.maxNeg = maxNeg;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public List<Integer> getOccurrences() {
+        return occurrences;
+    }
+
+    public void setOccurrences(List<Integer> occurrences) {
+        this.occurrences = occurrences;
+    }
 }
