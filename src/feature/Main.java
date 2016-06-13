@@ -65,7 +65,7 @@ public class Main {
 					case "A":
 						af = new AllFeatures();
 						u = new Utility();
-						
+
 						positionWord = u.getPositionWordMap(input, textColumn);
 						af.writeCsvFile(param[2], input, map, positionWord);
 						break;
@@ -88,11 +88,11 @@ public class Main {
 					csv2arff.writeArff(param[2], param[3]);
 					System.out.println("Arff file was created successfully.");
 				} catch (Exception e) {
-					// TODO: handle exception
 					System.err.println(e.getMessage());
-				}	
+				}
 			} else {
 				System.out.println("Invalid character");
 			}
 		}
+
 }

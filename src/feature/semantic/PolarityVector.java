@@ -121,6 +121,7 @@ public class PolarityVector {
 	/*
 	 * Return the subjective prototype vector
 	 */
+	@SuppressWarnings("rawtypes")
 	public Vector getSubjectiveVector(Map m) throws Exception {
 		Vector subj = vo.sum(getPositiveVector(m), getNegativeVector(m));
 		return subj;
