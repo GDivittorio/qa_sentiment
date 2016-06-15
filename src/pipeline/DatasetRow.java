@@ -6,31 +6,30 @@ public class DatasetRow {
 
 	private String label;
 	private double[] dimensions;
-	private double positiveSim, negativeSim;
+	private double positiveSim, negativeSim, subjectiveSim, objectiveSim;
 	private List<Integer> occurrences;
-	private double upperCRatio;
-	private int posEmoticon, negEmoticon, laughCount, QMarks, EMarks;
-	private int posTokens, negTokens, subjTokens, lastPos, lastNeg,
-			lastEmoticon;
+	private int posEmoticon, negEmoticon, laughCount, qeStringsCount, uppercaseWord, mentionCount, englishNegCount;
+	private int posTokens, negTokens, subjTokens, lastPos, lastNeg, lastEmoticon;
 	private int posSum, negSum, subjSum, maxPos, maxNeg;
 
-	public DatasetRow(String label, double[] dimensions, double positiveSim,
-			double negativeSim, List<Integer> occurrences, double upperCRatio, int posEmoticon,
-			int negEmoticon, int laughCount, int qMarks, int eMarks,
-			int posTokens, int negTokens, int subjTokens, int lastPos,
-			int lastNeg, int lastEmoticon, int posSum, int negSum, int subjSum,
-			int maxPos, int maxNeg) {
+	public DatasetRow(String label, double[] dimensions, double subjectiveSim, double objectiveSim, double positiveSim,
+			double negativeSim, List<Integer> occurrences, int uppercWordCount, int userMentionCount,int posEmoticon, int negEmoticon,
+			int laughCount, int qeStringsCount, int enNegationCount, int posTokens, int negTokens, int subjTokens, int lastPos, int lastNeg,
+			int lastEmoticon, int posSum, int negSum, int subjSum, int maxPos, int maxNeg) {
 		this.setLabel(label.replace(" ", ""));
 		this.dimensions = dimensions;
+		this.subjectiveSim = subjectiveSim;
+		this.objectiveSim = objectiveSim;
 		this.positiveSim = positiveSim;
 		this.negativeSim = negativeSim;
-		this.setOccurrences(occurrences);
-		this.upperCRatio = upperCRatio;
+		this.occurrences = occurrences;
+		this.uppercaseWord = uppercWordCount;
+		this.mentionCount = userMentionCount;
 		this.posEmoticon = posEmoticon;
 		this.negEmoticon = negEmoticon;
 		this.laughCount = laughCount;
-		QMarks = qMarks;
-		EMarks = eMarks;
+		this.qeStringsCount = qeStringsCount;
+		this.englishNegCount = enNegationCount;
 		this.posTokens = posTokens;
 		this.negTokens = negTokens;
 		this.subjTokens = subjTokens;
@@ -47,9 +46,12 @@ public class DatasetRow {
 	/*
 	 * Only for semantic features
 	 */
-	public DatasetRow(String label, double[] dimensions, double positiveSim, double negativeSim) {
+	public DatasetRow(String label, double[] dimensions, double subjectiveSim, double objectiveSim, double positiveSim,
+			double negativeSim) {
 		this.setLabel(label.replace(" ", ""));
 		this.dimensions = dimensions;
+		this.subjectiveSim = subjectiveSim;
+		this.objectiveSim = objectiveSim;
 		this.positiveSim = positiveSim;
 		this.negativeSim = negativeSim;
 	}
@@ -57,17 +59,18 @@ public class DatasetRow {
 	/*
 	 * Only for keyword features
 	 */
-	public DatasetRow(String label, double[] dimensions, List<Integer> occurrences, double uppercaseRatio, int emoPosCount,
-			int emoNegCount, int laughCount, int qMarkCount, int eMarkCount) {
+	public DatasetRow(String label, double[] dimensions, List<Integer> occurrences, int ucWordCount, int userMCount,
+			int emoPosCount, int emoNegCount, int laughCount, int qeStringCount, int enNegCount) {
 		this.setLabel(label.replace(" ", ""));
 		this.dimensions = dimensions;
-		this.setOccurrences(occurrences);
-		this.upperCRatio = uppercaseRatio;
+		this.occurrences = occurrences;
+		this.uppercaseWord = ucWordCount;
+		this.mentionCount = userMCount;
 		this.posEmoticon = emoPosCount;
 		this.negEmoticon = emoNegCount;
 		this.laughCount = laughCount;
-		QMarks = qMarkCount;
-		EMarks = eMarkCount;
+		this.qeStringsCount = qeStringCount;
+		this.englishNegCount = enNegCount;
 	}
 
 	/*
@@ -89,7 +92,7 @@ public class DatasetRow {
 		this.subjSum = sumSubjScore;
 		this.maxPos = maxPosScore;
 		this.maxNeg = maxNegScore;
-		
+
 	}
 
 	public double[] getDimensions() {
@@ -98,6 +101,22 @@ public class DatasetRow {
 
 	public void setDimensions(double[] dimensions) {
 		this.dimensions = dimensions;
+	}
+
+	public double getSubjectiveSim() {
+		return subjectiveSim;
+	}
+
+	public void setSubjectiveSim(double subjectiveSim) {
+		this.subjectiveSim = subjectiveSim;
+	}
+
+	public double getObjectiveSim() {
+		return objectiveSim;
+	}
+
+	public void setObjectiveSim(double objectiveSim) {
+		this.objectiveSim = objectiveSim;
 	}
 
 	public double getPositiveSim() {
@@ -114,14 +133,6 @@ public class DatasetRow {
 
 	public void setNegativeSim(double negativeSim) {
 		this.negativeSim = negativeSim;
-	}
-
-	public double getUpperCRatio() {
-		return upperCRatio;
-	}
-
-	public void setUpperCRatio(double upperCRatio) {
-		this.upperCRatio = upperCRatio;
 	}
 
 	public int getPosEmoticon() {
@@ -148,20 +159,12 @@ public class DatasetRow {
 		this.laughCount = laughCount;
 	}
 
-	public int getQMarks() {
-		return QMarks;
+	public int getQeStringsCount() {
+		return qeStringsCount;
 	}
 
-	public void setQMarks(int qMarks) {
-		QMarks = qMarks;
-	}
-
-	public int getEMarks() {
-		return EMarks;
-	}
-
-	public void setEMarks(int eMarks) {
-		EMarks = eMarks;
+	public void setQeStringsCount(int qeStrings) {
+		this.qeStringsCount = qeStrings;
 	}
 
 	public int getPosTokens() {
@@ -266,5 +269,29 @@ public class DatasetRow {
 
 	public void setOccurrences(List<Integer> occurrences) {
 		this.occurrences = occurrences;
+	}
+
+	public int getUppercaseWord() {
+		return uppercaseWord;
+	}
+
+	public void setUppercaseWord(int uppercaseWord) {
+		this.uppercaseWord = uppercaseWord;
+	}
+
+	public int getMentionCount() {
+		return mentionCount;
+	}
+
+	public void setMentionCount(int mentionCount) {
+		this.mentionCount = mentionCount;
+	}
+
+	public int getEnglishNegCount() {
+		return englishNegCount;
+	}
+
+	public void setEnglishNegCount(int englishNegCount) {
+		this.englishNegCount = englishNegCount;
 	}
 }

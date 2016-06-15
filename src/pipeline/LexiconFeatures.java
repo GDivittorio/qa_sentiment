@@ -32,6 +32,7 @@ public class LexiconFeatures {
 			Map<String, String> dictionary) throws Exception {
 		String row = "";
 		String line = "";
+		String lineLowc = "";
 		Vector v = new Vector();
 
 		BufferedReader br = new BufferedReader(new FileReader(input));
@@ -42,19 +43,20 @@ public class LexiconFeatures {
 			line = row.split(";")[0];
 
 			dimensions = new double[200];
-			v = vo.stringRepresentation(line.toLowerCase(), dictionary);
+			lineLowc = line.toLowerCase();
+			v = vo.stringRepresentation(lineLowc, dictionary);
 
 			for (int i = 0; i < v.length(); i++) {
 				dimensions[i] = v.getElement(i);
 			}
 
 			dr = new DatasetRow(row.split(";")[1], dimensions,
-					l.positiveTknCount(line), l.negativeTknCount(line),
-					l.subjTknCount(line), l.lastPosScore(line),
-					l.lastNegScore(line), l.lastEmoScore(line),
-					l.sumPosScore(line), l.sumNegScore(line),
-					l.sumSubjScore(line), l.maxPosScore(line),
-					l.maxNegScore(line));
+					l.positiveTknCount(lineLowc), l.negativeTknCount(lineLowc),
+					l.subjTknCount(lineLowc), l.lastPosScore(lineLowc),
+					l.lastNegScore(lineLowc), l.lastEmoScore(line),
+					l.sumPosScore(lineLowc), l.sumNegScore(lineLowc),
+					l.sumSubjScore(lineLowc), l.maxPosScore(lineLowc),
+					l.maxNegScore(lineLowc));
 
 			list.add(dr);
 		}

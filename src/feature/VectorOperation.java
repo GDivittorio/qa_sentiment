@@ -18,7 +18,7 @@ public class VectorOperation {
 	public Vector sum(Vector a, Vector b) throws Exception {
 		if (a.length() != b.length()) {
 			throw new Exception(
-					"Errore. La lunghezza dei 2 vettori non è la stessa.");
+					"Errore. La lunghezza dei 2 vettori non ï¿½ la stessa.");
 		}
 		v = new Vector();
 		double sum = 0;
@@ -29,12 +29,7 @@ public class VectorOperation {
 		return v;
 	}
 
-	/**
-	 * Fr
-	 * Data una stringa ne costruisce la rappresentazione vettoriale sommando
-	 * tutti i vettori delle parole che compongono la stringa
-	 * @throws Exception
-	 */
+
 	/**
 	 * Build the vector representation of a string, summing every vector of words in the string
 	 * @param s input string
