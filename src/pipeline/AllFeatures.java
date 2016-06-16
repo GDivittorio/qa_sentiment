@@ -59,7 +59,7 @@ public class AllFeatures {
 			lineLowc = line.toLowerCase();
 			v = vo.stringRepresentation(lineLowc, dictionary);
 
-			wordOccurrences = kc.getUnigramsOccurrences(line);
+			wordOccurrences = kc.getNgramsOccurrences(line, 1);
 
 			for (int i = 0; i < v.length(); i++) {
 				dimensions[i] = v.getElement(i);

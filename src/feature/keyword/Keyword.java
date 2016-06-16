@@ -4,11 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import edu.stanford.nlp.util.StringUtils;
 import feature.semantic.PolarityVector;
 
 /*
@@ -21,14 +19,14 @@ public class Keyword {
 	private List<String> negationWords = getNegationWordList();
 
 	/*
-	 * Counts the occurrences of every unigrams of the input string. Return a map of
-	 * unigrams and occurrences
+	 * Counts the occurrences of every Ngrams of the input string. Return a map of
+	 * Ngrams and occurrences
 	 */
-	public Map<String, Integer> getUnigramsOccurrences(String input) {
+	public Map<String, Integer> getNgramsOccurrences(String input, int n) {
 		int occurrences;
 		Map<String, Integer> mapOccurences = new HashMap<String, Integer>();
-		String[] tokens = input.split("\\s+");
-		for (String string : tokens) {
+		Collection<String> ss = StringUtils.getNgrams(new ArrayList<String>(Arrays.asList(input.split("\\s+"))), n, n);;
+		for (String string : ss) {
 			occurrences = 0;
 			if (mapOccurences.keySet().contains(string)) {
 				occurrences = mapOccurences.get(string);
@@ -41,39 +39,6 @@ public class Keyword {
 		return mapOccurences;
 	}
 	
-	/*
-	 * Counts the occurrences of every bi-grams of the input string. Return a map of
-	 * bi-grams and occurrences
-	 */
-	public Map<String, Integer> getBigramsOccurrences(String input) {
-		int occurrences;
-		Map<String, Integer> mapOccurences = new HashMap<String, Integer>();
-		String[] tokens = getBigrams(input);
-		for (String string : tokens) {
-			occurrences = 0;
-			if (mapOccurences.keySet().contains(string)) {
-				occurrences = mapOccurences.get(string);
-				occurrences++;
-				mapOccurences.put(string, occurrences);
-			} else {
-				mapOccurences.put(string, 1);
-			}
-		}
-		return mapOccurences;
-	}
-	
-	/*
-	 * Returns an array of bi-grams from an input string
-	 */
-	private String[] getBigrams(String s){
-		String[] unigrams = s.split("\\s+");
-		String[] bgrams = new String[unigrams.length-1];
-		for(int i = 0; i<bgrams.length; i++){
-			bgrams[i] = unigrams[i] + "_" + unigrams[i+1];
-		}
-		return bgrams;
-	}
-
 	/*
 	 * Counts the total number of characters in a string
 	 */
