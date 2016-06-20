@@ -1,7 +1,12 @@
 package feature.keyword;
-import java.util.HashMap;
-import java.util.Map;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.*;
+
+import edu.stanford.nlp.util.StringUtils;
 import feature.semantic.PolarityVector;
 
 /*
@@ -11,28 +16,29 @@ public class Keyword {
 
 	private int count;
 	private PolarityVector pv = new PolarityVector();
-	
+	private List<String> negationWords = getNegationWordList();
+
 	/*
-	 * Counts the occurrences of every word of the input string.
-	 * Return a map of unigrams and occurrences
+	 * Counts the occurrences of every Ngrams of the input string. Return a map of
+	 * Ngrams and occurrences
 	 */
-	public Map<String, Integer> getWordOccurrences(String input){
+	public Map<String, Integer> getNgramsOccurrences(String input, int n) {
 		int occurrences;
 		Map<String, Integer> mapOccurences = new HashMap<String, Integer>();
-			String[] tokens = input.split("\\s+");
-			for (String string : tokens) {
-				occurrences = 0;
-				if(mapOccurences.keySet().contains(string)){
-					occurrences = mapOccurences.get(string);
-					occurrences++;
-					mapOccurences.put(string, occurrences);
-				}else{
-					mapOccurences.put(string, 1);
-				}
+		Collection<String> ss = StringUtils.getNgrams(new ArrayList<String>(Arrays.asList(input.split("\\s+"))), n, n);;
+		for (String string : ss) {
+			occurrences = 0;
+			if (mapOccurences.keySet().contains(string)) {
+				occurrences = mapOccurences.get(string);
+				occurrences++;
+				mapOccurences.put(string, occurrences);
+			} else {
+				mapOccurences.put(string, 1);
 			}
+		}
 		return mapOccurences;
 	}
-
+	
 	/*
 	 * Counts the total number of characters in a string
 	 */
@@ -40,24 +46,24 @@ public class Keyword {
 		count = 0;
 		String[] ss = input.split("\\s+");
 		for (String s : ss) {
-				count += s.length();
-			}
+			count += s.length();
+		}
 		return count;
 	}
-	
+
 	/*
 	 * Counts the total number of words in a string.
-	 * @author Gianmarco Divittorio
-	 * TODO: test
+	 * 
+	 * @author Gianmarco Divittorio TODO: test
 	 */
 	private int wordsCount(String input) {
 		count = 0;
 		String[] ss = input.split("\\s+");
 		for (String s : ss) {
-				count ++;
-			}
+			count++;
+		}
 		return count;
-	}	
+	}
 
 	/*
 	 * Counts the total number of uppercase characters in a string
@@ -73,33 +79,36 @@ public class Keyword {
 		}
 		return count;
 	}
-	
+
 	/*
-	 * Counts the total number of uppervase words in a string. Note: special characters
-	 * are considered as uppercase characters too for the purpose of the method.
-	 * @author Gianmarco Divittorio
-	 * TODO: test
+	 * Counts the total number of uppercase words in a string. Note: special
+	 * characters are considered as uppercase characters too for the purpose of
+	 * the method.
+	 * 
+	 * @author Gianmarco Divittorio TODO: test
 	 */
-	private int uppercaseWordsCount(String input){
+	public int uppercaseWordsCount(String input) {
 		count = 0;
 		String[] ss = input.split("\\s");
-		for (String s: ss){
-			if(s.matches("^[A-Z]+$")){
-		        count++;
-		    }
+		for (String s : ss) {
+			if (s.matches("^[A-Z]+$")) {
+				count++;
+			}
 		}
 		return count;
 	}
-	
+
 	/*
-	 * Counts the ratio between uppercase words and the total number of words in a string.
+	 * Counts the ratio between uppercase words and the total number of words in
+	 * a string.
+	 * 
 	 * @author Gianmarco Divittorio
 	 */
-	public double uppercaseWordsRatio (String input){
+	public double uppercaseWordsRatio(String input) {
 		double upperWords = uppercaseWordsCount(input);
 		double totalWords = wordsCount(input);
-		
-		return upperWords/totalWords;
+
+		return upperWords / totalWords;
 	}
 
 	/*
@@ -111,18 +120,18 @@ public class Keyword {
 		double upperChar = uppercaseCount(input);
 		return upperChar / totalChar;
 	}
-	
+
 	/*
-	 * Counts the total number of user mentions in a string, where a user mention is
-	 * expressed in the form: "@User" 
-	 * TODO: test
+	 * Counts the total number of user mentions in a string, where a user
+	 * mention is expressed in the form: "@User" TODO: test
+	 * 
 	 * @author Gianmarco Divittorio
 	 */
-	public int mentionCount (String input){
+	public int mentionCount(String input) {
 		count = 0;
 		String[] ss = input.split("\\s+");
 		for (String s : ss) {
-			if (s.startsWith("@")){
+			if (s.startsWith("@")) {
 				count++;
 			}
 		}
@@ -160,8 +169,7 @@ public class Keyword {
 	}
 
 	/*
-	 * Counts the occurrences of sequences of "ah" as slang expression of
-	 * laughters in a string
+	 * Counts the occurrences of expression of laughters in a string
 	 */
 	public int laughCount(String input) {
 		count = 0;
@@ -175,40 +183,71 @@ public class Keyword {
 	}
 
 	/*
-	 * Verify if a string is a valid sequence of "ah" (min 2)
+	 * Verify is a string is an expression of laughters, like
+	 * "ahah","ihihih","lol",etc.
 	 */
-	private boolean isValidLaughSequence(String s) {
-		String a = "(?i)ah(ah)+";
-		return s.matches(a);
+	private static boolean isValidLaughSequence(String s) {
+		String l1 = "(?i)((ah|ha){2}(a|h)*)|((eh|he){2}(e|h)*)|((ih|hi){2}(i|h)*)";
+		if (s.matches(l1) || s.equalsIgnoreCase("lmao") || s.equalsIgnoreCase("lol") || s.equalsIgnoreCase("alol"))
+			return true;
+		else
+			return false;
 	}
 
 	/*
-	 * Counts the total occurences of question marks in a string
+	 * Counts the total occurrences of string composed only from question marks
+	 * and/or exclamation marks.
 	 */
-	public int qMarkCount(String input) {
+	public int qeStringCount(String input) {
 		count = 0;
 		String[] ss = input.split("\\s+");
 		for (String s : ss) {
-			for (char c : s.toCharArray()) {
-				if (c == '?')
-					count++;
-			}
+			if (isValidQEString(s))
+				count++;
 		}
 		return count;
 	}
 
 	/*
-	 * Counts the total occurences of exclamation marks in a string
+	 * Verify if a sting is a valid sequence of question marks and/or
+	 * exclamation marks (min 2).
 	 */
-	public int eMarkCount(String input) {
-		count = 0;
-		String[] ss = input.split("\\s+");
-		for (String s : ss) {
-			for (char c : s.toCharArray()) {
-				if (c == '!')
-					count++;
-			}
-		}
-		return count;
+	private boolean isValidQEString(String s) {
+		String regex = "[!?]{2}[!?]*";
+		return s.matches(regex);
 	}
+
+	/*
+	 * Get the list of english negation words from /res/NegatingWordList
+	 */
+	private List<String> getNegationWordList() {
+		List<String> n = new ArrayList<String>();
+		BufferedReader br;
+		try {
+			InputStream is = getClass().getResourceAsStream("/NegatingWordList");
+			br = new BufferedReader(new InputStreamReader(is));
+			String line = "";
+			while ((line = br.readLine()) != null) {
+				n.add(line);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return n;
+	}
+
+	/*
+	 * Counts the number of english negation words in a string
+	 */
+	public int enNegationsCount(String s) {
+		int n = 0;
+		String[] ss = s.split("\\s+");
+		for (String string : ss) {
+			// case sensitive
+			if (negationWords.contains(string))
+				n++;
+		}
+		return n;
+	}
+
 }

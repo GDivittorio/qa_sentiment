@@ -21,10 +21,9 @@ public class SentiStrength{
 			String line = "";
 			String[] ss;
 	 		while((line = br.readLine()) != null){
-					ss = line.split(" ");
+					ss = line.split("\\s+");
 					map.put(ss[0], Integer.parseInt(ss[1]));
 				}
-
 				br.close();
 		} catch (NumberFormatException | IOException e1) {
 			e1.printStackTrace();
@@ -42,7 +41,7 @@ public class SentiStrength{
 			String line = "";
 			String[] ss;
 	 		while((line = br.readLine()) != null){
-					ss = line.split(" ");
+					ss = line.split("\\s+");
 					map.put(ss[0], Integer.parseInt(ss[1]));
 				}
 				br.close();

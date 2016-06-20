@@ -18,14 +18,14 @@ public class PolarityVector {
 	public String[] posEmoticon = { "%-)", "(-:", "(:", "(^ ^)", "(^-^)",
 			"(^.^)", "(^_^)", "(o:", "--^--@", "0:)", "8)", ":)", ":-)", ":-*",
 			":-*", ":-D", ":-P", ":-}", ":3", ":9", ":D", ":P", ":P", ":X",
-			":]", ":b)", ":o)", ":p", ":Þ", ";^)", "<3", "=)", "=]", ">:)",
+			":]", ":b)", ":o)", ":p", ":ï¿½", ";^)", "<3", "=)", "=]", ">:)",
 			">:D", ">=D", " @}->--", "XD", "XD", "XP", "^_^", "x3?", "xD",
 			"|D", "}:)" };
 
 	public String[] negEmoticon = { "%-(", ")-:", "):", ")o:", "38*", "8-0",
 			"8/", "8\\", "8c", ":#", ":'(", ":'-(", ":(", ":*(", ":,(", ":-&",
 			":-(", ":-(o)", ":-/", ":-S", ":-\\", ":-|", ":/", ":E", ":F",
-			":O", ":S", ":[", ":[", ":\\", ":_(", ":o(", ":s", ":|", ":…(",
+			":O", ":S", ":[", ":[", ":\\", ":_(", ":o(", ":s", ":|", ":ï¿½(",
 			"</3-1", "<o<", "=(", "=[", ">/", ">:(", ">:L", ">:O", ">[", ">\\",
 			">o>", "B(", "Bc", "D:", "X(", "X(", "X-(", "XO", "XP", "^o)",
 			"xP", "|8C", "|8c" };
@@ -93,6 +93,38 @@ public class PolarityVector {
 		}
 		neg = vo.sum(vectorList);
 		return neg;
+	}
+
+	/*
+	 * Return the objective prototype vector
+	 */
+	@SuppressWarnings("rawtypes")
+	public Vector getObjectiveVector(Map m) throws Exception {
+		Vector obj = new Vector();
+		vectorList = new ArrayList<Vector>();
+		Vector temp = new Vector();
+		String tmp = "";
+		String line = "";
+		InputStream is = getClass().getResourceAsStream("/ObjectiveWord");
+		br = new BufferedReader(new InputStreamReader(is));
+		while ((line = br.readLine()) != null) {
+			tmp = (String) m.get(line);
+			if (tmp != null) {
+				temp = new Vector(tmp);
+				vectorList.add(temp);
+			}
+		}
+		obj = vo.sum(vectorList);
+		return obj;
+	}
+
+	/*
+	 * Return the subjective prototype vector
+	 */
+	@SuppressWarnings("rawtypes")
+	public Vector getSubjectiveVector(Map m) throws Exception {
+		Vector subj = vo.sum(getPositiveVector(m), getNegativeVector(m));
+		return subj;
 	}
 	
 	/*
